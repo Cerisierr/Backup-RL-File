@@ -181,7 +181,8 @@ h1 {
     position: fixed;
 
     bottom: 28px;
-    right: 170px;
+
+    left: 20px;
 
     color: rgba(255,255,255,0.7);
 
