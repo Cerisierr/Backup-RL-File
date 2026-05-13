@@ -142,9 +142,9 @@ h1 {
     position: fixed !important;
 
     bottom: 23px !important;
-    right: 150px !important;
+    left: 20px !important;
 
-    left: auto !important;
+    right: auto !important;
     top: auto !important;
 
     color: rgba(255,255,255,0.6);
