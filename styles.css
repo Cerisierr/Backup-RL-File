@@ -36,9 +36,6 @@ body {
     margin: auto;
 
     padding: 20px;
-
-    display: flex;
-    flex-direction: column;
 }
 
 #search {
@@ -66,4 +63,9 @@ body {
     text-decoration: none;
     padding: 10px 15px;
     border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
 }
