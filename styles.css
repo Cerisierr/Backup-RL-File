@@ -1,40 +1,13 @@
 body {
-    background: linear-gradient(
-        -45deg,
-        #020617,
-        #0f172a,
-        #1e1b4b,
-        #312e81,
-        #4c1d95
-    );
+    margin: 0;
 
-    background-size: 400% 400%;
-
-    animation: gradient 8s ease infinite;
+    min-height: 100vh;
 
     color: white;
 
     font-family: Arial, sans-serif;
 
-    min-height: 100vh;
-
-    margin: 0;
-    padding: 0;
-}
-
-@keyframes gradient {
-
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
+    overflow-x: hidden;
 }
 
 .container {
@@ -44,6 +17,9 @@ body {
     margin: auto;
 
     padding: 20px;
+
+    position: relative;
+    z-index: 10;
 }
 
 h1 {
@@ -53,6 +29,8 @@ h1 {
     margin-bottom: 30px;
 
     font-size: 42px;
+
+    text-shadow: 0 0 20px rgba(255,255,255,0.2);
 }
 
 #search {
@@ -63,16 +41,37 @@ h1 {
     border: none;
     border-radius: 12px;
 
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     font-size: 16px;
 
     box-sizing: border-box;
+
+    background: rgba(31, 41, 55, 0.8);
+
+    color: white;
+
+    backdrop-filter: blur(8px);
+
+    outline: none;
+}
+
+#search::placeholder {
+    color: #cbd5e1;
+}
+
+#resultCount {
+    margin-bottom: 20px;
+
+    color: #cbd5e1;
+
+    font-size: 14px;
 }
 
 #files {
     display: flex;
     flex-direction: column;
+
     gap: 12px;
 }
 
@@ -100,6 +99,14 @@ h1 {
     background: rgba(45, 55, 72, 0.9);
 }
 
+.file strong {
+    font-size: 16px;
+}
+
+.file small {
+    color: #cbd5e1;
+}
+
 .download {
     background: linear-gradient(
         135deg,
@@ -124,4 +131,23 @@ h1 {
     transform: scale(1.05);
 
     filter: brightness(1.1);
+}
+
+@media (max-width: 700px) {
+
+    .file {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+    .download {
+        width: 100%;
+
+        text-align: center;
+
+        box-sizing: border-box;
+    }
 }

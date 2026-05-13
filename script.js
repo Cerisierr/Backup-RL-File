@@ -51,11 +51,21 @@ function displayFiles(files, totalResults = files.length) {
 
         div.innerHTML = `
             <div>
-                <strong>${file.name}</strong><br>
-                <small>${file.category}</small>
+                <strong>${file.product}</strong><br>
+
+                <small>
+                    ${file.category}
+                </small><br>
+
+                <small>
+                    ${file.name}
+                </small>
             </div>
 
-            <a class="download" href="${url}" target="_blank">
+            <a class="download"
+               href="${url}"
+               target="_blank">
+
                 Download
             </a>
         `;
