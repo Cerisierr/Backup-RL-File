@@ -1,6 +1,6 @@
 let allFiles = [];
 
-fetch('files.json')
+fetch('items.json')
     .then(response => response.json())
     .then(data => {
         allFiles = data;
@@ -25,6 +25,9 @@ function displayFiles(files) {
     container.innerHTML = '';
 
     files.forEach(file => {
+
+        const url = `./files/${file.name}`;
+
         const div = document.createElement('div');
         div.className = 'file';
 
@@ -34,7 +37,7 @@ function displayFiles(files) {
                 <small>${file.category}</small>
             </div>
 
-            <a class="download" href="${file.url}" target="_blank">
+            <a class="download" href="${url}" target="_blank">
                 Download
             </a>
         `;
