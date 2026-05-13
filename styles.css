@@ -8,6 +8,25 @@ body {
     font-family: Arial, sans-serif;
 
     overflow-x: hidden;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #111827,
+            #020617
+        );
+}
+
+#bg {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: -1;
 }
 
 .container {
@@ -133,6 +152,35 @@ h1 {
     filter: brightness(1.1);
 }
 
+.discord-btn {
+    position: fixed;
+
+    bottom: 20px;
+    right: 20px;
+
+    background: #5865F2;
+
+    color: white;
+
+    padding: 12px 18px;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    z-index: 99999;
+
+    box-shadow: 0 0 15px rgba(88,101,242,0.5);
+
+    transition: 0.2s;
+}
+
+.discord-btn:hover {
+    transform: scale(1.05);
+}
+
 @media (max-width: 700px) {
 
     .file {
@@ -150,15 +198,4 @@ h1 {
 
         box-sizing: border-box;
     }
-}
-
-canvas {
-    position: fixed !important;
-    top: 0;
-    left: 0;
-
-    width: 100% !important;
-    height: 100% !important;
-
-    z-index: -1;
 }
