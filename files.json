@@ -1,0 +1,12 @@
+[
+  {
+    "name": "album_anthem_champions",
+    "category": "Anthem",
+    "url": "https://example.com/file1.zip"
+  },
+  {
+    "name": "map_labs_underpass",
+    "category": "Map",
+    "url": "https://example.com/file2.zip"
+  }
+]
