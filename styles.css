@@ -1,22 +1,19 @@
-html {
-    background: #111827;
-}
-
 body {
     background: linear-gradient(
         -45deg,
+        #020617,
         #0f172a,
-        #111827,
-        #1e293b,
-        #312e81
+        #1e1b4b,
+        #312e81,
+        #4c1d95
     );
 
     background-size: 400% 400%;
-    background-attachment: fixed;
 
-    animation: gradient 15s ease infinite;
+    animation: gradient 8s ease infinite;
 
     color: white;
+
     font-family: Arial, sans-serif;
 
     min-height: 100vh;
@@ -66,26 +63,17 @@ h1 {
     border: none;
     border-radius: 12px;
 
-    outline: none;
-
     margin-bottom: 20px;
 
     font-size: 16px;
 
     box-sizing: border-box;
-
-    background: #1f2937;
-    color: white;
-}
-
-#search::placeholder {
-    color: #9ca3af;
 }
 
 #files {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .file {
@@ -112,14 +100,6 @@ h1 {
     background: rgba(45, 55, 72, 0.9);
 }
 
-.file strong {
-    font-size: 16px;
-}
-
-.file small {
-    color: #9ca3af;
-}
-
 .download {
     background: linear-gradient(
         135deg,
@@ -135,28 +115,13 @@ h1 {
 
     border-radius: 12px;
 
-    transition: 0.2s;
-
     font-weight: bold;
+
+    transition: 0.2s;
 }
 
 .download:hover {
     transform: scale(1.05);
 
     filter: brightness(1.1);
-}
-
-@media (max-width: 700px) {
-
-    .file {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .download {
-        width: 100%;
-        text-align: center;
-        box-sizing: border-box;
-    }
 }
