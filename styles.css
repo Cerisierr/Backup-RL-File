@@ -1,7 +1,32 @@
 body {
-    background: #111827;
+    background: linear-gradient(-45deg,
+        #0f172a,
+        #111827,
+        #1e293b,
+        #312e81
+    );
+
+    background-size: 400% 400%;
+
+    animation: gradient 15s ease infinite;
+
     color: white;
     font-family: Arial;
+}
+
+@keyframes gradient {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .container {
@@ -36,25 +61,4 @@ body {
     text-decoration: none;
     padding: 10px 15px;
     border-radius: 10px;
-}
-
-.discord-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-
-    background: #5865F2;
-    color: white;
-
-    padding: 12px 18px;
-    border-radius: 12px;
-
-    text-decoration: none;
-    font-weight: bold;
-
-    z-index: 9999;
-}
-
-.discord-button:hover {
-    transform: scale(1.05);
 }
