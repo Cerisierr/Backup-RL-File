@@ -6,7 +6,7 @@ fetch('items.json')
 
         allFiles = data;
 
-        displayFiles(allFiles.slice(0, 100));
+        displayFiles(allFiles.slice(0, 100), allFiles.length);
     });
 
 const searchInput = document.getElementById('search');
@@ -33,13 +33,8 @@ function displayFiles(files, totalResults = files.length) {
 
     container.innerHTML = '';
 
-    const resultCount = document.getElementById('resultCount');
-
-    if (resultCount) {
-
-        resultCount.innerText =
-            `${totalResults} results found • Showing first ${files.length}`;
-    }
+    document.getElementById('resultCount').innerText =
+        `${totalResults} results found • Showing first ${files.length}`;
 
     files.forEach(file => {
 
@@ -51,21 +46,14 @@ function displayFiles(files, totalResults = files.length) {
 
         div.innerHTML = `
             <div>
-                <strong>${file.product}</strong><br>
+                <strong>${file.name}</strong><br>
 
-                <small>
-                    ${file.category}
-                </small><br>
-
-                <small>
-                    ${file.name}
-                </small>
+                <small>${file.category}</small>
             </div>
 
             <a class="download"
                href="${url}"
                target="_blank">
-
                 Download
             </a>
         `;
