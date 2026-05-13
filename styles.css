@@ -1,5 +1,10 @@
+html {
+    background: #111827;
+}
+
 body {
-    background: linear-gradient(-45deg,
+    background: linear-gradient(
+        -45deg,
         #0f172a,
         #111827,
         #1e293b,
@@ -7,11 +12,17 @@ body {
     );
 
     background-size: 400% 400%;
+    background-attachment: fixed;
 
     animation: gradient 15s ease infinite;
 
     color: white;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
+
+    min-height: 100vh;
+
+    margin: 0;
+    padding: 0;
 }
 
 @keyframes gradient {
@@ -38,34 +49,96 @@ body {
     padding: 20px;
 }
 
+h1 {
+    text-align: center;
+
+    margin-top: 20px;
+    margin-bottom: 30px;
+
+    font-size: 42px;
+}
+
 #search {
     width: 100%;
+
     padding: 15px;
-    border-radius: 10px;
+
     border: none;
+    border-radius: 12px;
+
+    outline: none;
+
     margin-bottom: 20px;
+
+    font-size: 16px;
+
+    box-sizing: border-box;
+
+    background: #1f2937;
+    color: white;
+}
+
+#search::placeholder {
+    color: #9ca3af;
+}
+
+#files {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .file {
-    background: #1f2937;
+    background: rgba(31, 41, 55, 0.9);
+
     padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 10px;
+
+    border-radius: 12px;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    backdrop-filter: blur(5px);
+}
+
+.file strong {
+    font-size: 16px;
+}
+
+.file small {
+    color: #9ca3af;
 }
 
 .download {
-    background: #0a094d;
+    background: #312e81;
+
     color: white;
+
     text-decoration: none;
-    padding: 10px 15px;
+
+    padding: 10px 16px;
+
     border-radius: 10px;
+
+    transition: 0.2s;
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
+.download:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 700px) {
+
+    .file {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .download {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
 }
