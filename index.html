@@ -14,15 +14,35 @@
 
 <body>
 
+<canvas id="bg"></canvas>
+
 <div class="container">
 
     <h1>Backup RL Files</h1>
 
-    <input
-        type="text"
-        id="search"
-        placeholder="Search a file..."
-    >
+    <div class="topbar">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Search a file..."
+        >
+
+        <select id="filter">
+            <option value="all">All</option>
+            <option value="Wheels">Wheels</option>
+            <option value="Boost">Boost</option>
+            <option value="Decal">Decal</option>
+            <option value="GoalExplosion">GoalExplosion</option>
+            <option value="Trail">Trail</option>
+            <option value="Body">Body</option>
+            <option value="Antenna">Antenna</option>
+            <option value="Topper">Topper</option>
+        </select>
+
+    </div>
+
+    <p id="resultCount"></p>
 
     <div id="files"></div>
 
@@ -34,15 +54,14 @@
     Discord
 </a>
 
-<div id="credits">
+<div class="credit">
     By Cerisierr_ for RocketSwap
 </div>
 
-<canvas id="bg"></canvas>
+<script src="script.js"></script>
 
 <script>
 const canvas = document.getElementById('bg');
-
 const ctx = canvas.getContext('2d');
 
 let width;
@@ -124,8 +143,6 @@ function animate() {
 
 animate();
 </script>
-
-<script src="script.js"></script>
 
 </body>
 </html>

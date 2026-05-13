@@ -28,19 +28,32 @@ fetch('items.json')
     });
 
 const searchInput = document.getElementById('search');
+const filterInput = document.getElementById('filter');
 
-searchInput.addEventListener('input', () => {
+searchInput.addEventListener('input', applyFilters);
+filterInput.addEventListener('change', applyFilters);
 
-    const value = normalize(searchInput.value);
+function applyFilters() {
 
-    filteredFiles = allFiles.filter(file =>
-        normalize(file.name).includes(value)
-    );
+    const searchValue = normalize(searchInput.value);
+    const filterValue = filterInput.value;
+
+    filteredFiles = allFiles.filter(file => {
+
+        const matchesSearch =
+            normalize(file.name).includes(searchValue);
+
+        const matchesFilter =
+            filterValue === 'all' ||
+            file.category === filterValue;
+
+        return matchesSearch && matchesFilter;
+    });
 
     currentPage = 1;
 
     displayFiles();
-});
+}
 
 function displayFiles() {
 
@@ -49,7 +62,6 @@ function displayFiles() {
     container.innerHTML = '';
 
     const start = (currentPage - 1) * filesPerPage;
-
     const end = start + filesPerPage;
 
     const filesToShow = filteredFiles.slice(start, end);
@@ -77,6 +89,9 @@ function displayFiles() {
 
         container.appendChild(div);
     });
+
+    document.getElementById('resultCount').innerText =
+        `${filteredFiles.length} files found`;
 
     displayPagination();
 }
@@ -112,10 +127,7 @@ function displayPagination() {
 
             displayFiles();
 
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo(0, 0);
         };
 
         pagination.appendChild(prev);
@@ -124,7 +136,7 @@ function displayPagination() {
     const info = document.createElement('span');
 
     info.innerText =
-        `Page ${currentPage} / ${totalPages}`;
+        ` Page ${currentPage} / ${totalPages} `;
 
     pagination.appendChild(info);
 
@@ -140,10 +152,7 @@ function displayPagination() {
 
             displayFiles();
 
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo(0, 0);
         };
 
         pagination.appendChild(next);
