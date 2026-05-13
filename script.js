@@ -1,12 +1,21 @@
 let allFiles = [];
+let filteredFiles = [];
+
+let currentPage = 1;
+const filesPerPage = 100;
 
 fetch('items.json')
     .then(response => response.json())
     .then(data => {
 
-        allFiles = data;
+        // retire les doublons
+        allFiles = [...new Map(
+            data.map(file => [file.name, file])
+        ).values()];
 
-        displayFiles(allFiles.slice(0, 100), allFiles.length);
+        filteredFiles = allFiles;
+
+        displayFiles();
     });
 
 const searchInput = document.getElementById('search');
@@ -15,28 +24,27 @@ searchInput.addEventListener('input', () => {
 
     const value = searchInput.value.toLowerCase();
 
-    const filtered = allFiles.filter(file =>
-
-        file.name.toLowerCase().includes(value) ||
-
-        file.category.toLowerCase().includes(value) ||
-
-        file.product.toLowerCase().includes(value)
+    filteredFiles = allFiles.filter(file =>
+        file.name.toLowerCase().includes(value)
     );
 
-    displayFiles(filtered.slice(0, 100), filtered.length);
+    currentPage = 1;
+
+    displayFiles();
 });
 
-function displayFiles(files, totalResults = files.length) {
+function displayFiles() {
 
     const container = document.getElementById('files');
 
     container.innerHTML = '';
 
-    document.getElementById('resultCount').innerText =
-        `${totalResults} results found • Showing first ${files.length}`;
+    const start = (currentPage - 1) * filesPerPage;
+    const end = start + filesPerPage;
 
-    files.forEach(file => {
+    const filesToShow = filteredFiles.slice(start, end);
+
+    filesToShow.forEach(file => {
 
         const url = `./files/${file.name}`;
 
@@ -47,8 +55,7 @@ function displayFiles(files, totalResults = files.length) {
         div.innerHTML = `
             <div>
                 <strong>${file.name}</strong><br>
-
-                <small>${file.category}</small>
+                <small>${file.category || 'Unknown'}</small>
             </div>
 
             <a class="download"
@@ -60,4 +67,69 @@ function displayFiles(files, totalResults = files.length) {
 
         container.appendChild(div);
     });
+
+    displayPagination();
+}
+
+function displayPagination() {
+
+    let pagination = document.getElementById('pagination');
+
+    if (!pagination) {
+
+        pagination = document.createElement('div');
+
+        pagination.id = 'pagination';
+
+        document.querySelector('.container')
+            .appendChild(pagination);
+    }
+
+    pagination.innerHTML = '';
+
+    const totalPages =
+        Math.ceil(filteredFiles.length / filesPerPage);
+
+    if (currentPage > 1) {
+
+        const prev = document.createElement('button');
+
+        prev.innerText = '← Previous';
+
+        prev.onclick = () => {
+
+            currentPage--;
+
+            displayFiles();
+
+            window.scrollTo(0, 0);
+        };
+
+        pagination.appendChild(prev);
+    }
+
+    const info = document.createElement('span');
+
+    info.innerText =
+        ` Page ${currentPage} / ${totalPages} `;
+
+    pagination.appendChild(info);
+
+    if (currentPage < totalPages) {
+
+        const next = document.createElement('button');
+
+        next.innerText = 'Next →';
+
+        next.onclick = () => {
+
+            currentPage++;
+
+            displayFiles();
+
+            window.scrollTo(0, 0);
+        };
+
+        pagination.appendChild(next);
+    }
 }
