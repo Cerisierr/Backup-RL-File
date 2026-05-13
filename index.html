@@ -14,8 +14,6 @@
 
 <body>
 
-<canvas id="bg"></canvas>
-
 <div class="container">
 
     <h1>Backup RL Files</h1>
@@ -26,20 +24,23 @@
         placeholder="Search a file..."
     >
 
-    <p id="resultCount"></p>
-
     <div id="files"></div>
 
 </div>
 
 <a href="https://discord.gg/mYnjBwraQQ"
    target="_blank"
-   class="discord-btn">
+   class="discord-button">
     Discord
 </a>
 
-<script>
+<div id="credits">
+    By Cerisierr_ for RocketSwap
+</div>
 
+<canvas id="bg"></canvas>
+
+<script>
 const canvas = document.getElementById('bg');
 
 const ctx = canvas.getContext('2d');
@@ -122,7 +123,6 @@ function animate() {
 }
 
 animate();
-
 </script>
 
 <script src="script.js"></script>
