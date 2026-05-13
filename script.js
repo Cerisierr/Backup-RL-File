@@ -2,13 +2,22 @@ let allFiles = [];
 let filteredFiles = [];
 
 let currentPage = 1;
+
 const filesPerPage = 100;
+
+function normalize(text) {
+
+    return text
+        .toLowerCase()
+        .replace(/[_-]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
 
 fetch('items.json')
     .then(response => response.json())
     .then(data => {
 
-        // retire les doublons
         allFiles = [...new Map(
             data.map(file => [file.name, file])
         ).values()];
@@ -22,10 +31,10 @@ const searchInput = document.getElementById('search');
 
 searchInput.addEventListener('input', () => {
 
-    const value = searchInput.value.toLowerCase();
+    const value = normalize(searchInput.value);
 
     filteredFiles = allFiles.filter(file =>
-        file.name.toLowerCase().includes(value)
+        normalize(file.name).includes(value)
     );
 
     currentPage = 1;
@@ -40,6 +49,7 @@ function displayFiles() {
     container.innerHTML = '';
 
     const start = (currentPage - 1) * filesPerPage;
+
     const end = start + filesPerPage;
 
     const filesToShow = filteredFiles.slice(start, end);
@@ -102,7 +112,10 @@ function displayPagination() {
 
             displayFiles();
 
-            window.scrollTo(0, 0);
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         };
 
         pagination.appendChild(prev);
@@ -111,7 +124,7 @@ function displayPagination() {
     const info = document.createElement('span');
 
     info.innerText =
-        ` Page ${currentPage} / ${totalPages} `;
+        `Page ${currentPage} / ${totalPages}`;
 
     pagination.appendChild(info);
 
@@ -127,7 +140,10 @@ function displayPagination() {
 
             displayFiles();
 
-            window.scrollTo(0, 0);
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         };
 
         pagination.appendChild(next);
