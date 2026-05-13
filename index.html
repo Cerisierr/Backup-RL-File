@@ -7,13 +7,20 @@
 
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
 <div class="container">
 
     <h1>Backup RL Files</h1>
 
-    <input type="text" id="search" placeholder="Search a file...">
+    <input
+        type="text"
+        id="search"
+        placeholder="Search a file..."
+    >
+
+    <p id="resultCount"></p>
 
     <div id="files"></div>
 
@@ -22,17 +29,35 @@
 <a href="https://discord.gg/mYnjBwraQQ"
    target="_blank"
    style="
-      position:fixed;
-      bottom:20px;
-      right:20px;
-      background:#5865F2;
-      color:white;
-      padding:12px 18px;
-      border-radius:12px;
-      text-decoration:none;
-      font-weight:bold;
-      z-index:99999;
-   ">
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+
+      background: #5865F2;
+      color: white;
+
+      padding: 12px 18px;
+
+      border-radius: 12px;
+
+      text-decoration: none;
+      font-weight: bold;
+
+      z-index: 99999;
+
+      box-shadow: 0 0 15px rgba(88,101,242,0.5);
+
+      transition: 0.2s;
+   "
+
+   onmouseover="
+      this.style.transform='scale(1.05)';
+   "
+
+   onmouseout="
+      this.style.transform='scale(1)';
+   "
+>
     Discord
 </a>
 
