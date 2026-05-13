@@ -30,9 +30,13 @@
 
         <select id="filter">
 
-            <option value="all">All</option>
+            <option value="all">
+                All
+            </option>
 
-            <option value="Wheels">Wheels</option>
+            <option value="Wheels">
+                Wheels
+            </option>
 
             <option value="Rocket Boost">
                 Boost
@@ -85,7 +89,9 @@
 <script src="script.js"></script>
 
 <script>
+
 const canvas = document.getElementById('bg');
+
 const ctx = canvas.getContext('2d');
 
 let width;
@@ -166,6 +172,23 @@ function animate() {
 }
 
 animate();
+
+setInterval(() => {
+
+    fetch(window.location.href, {
+
+        method: 'HEAD',
+
+        cache: 'no-store'
+    })
+    .then(() => {
+
+        location.reload(true);
+
+    });
+
+}, 30000);
+
 </script>
 
 </body>
