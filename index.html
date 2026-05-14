@@ -112,18 +112,11 @@
 function closePopup() {
 
     document.getElementById('popup').style.display = 'none';
-
-    localStorage.setItem('popupSeen', 'true');
 }
 
 window.addEventListener('load', () => {
 
-    const seen = localStorage.getItem('popupSeen');
-
-    if (!seen) {
-
-        document.getElementById('popup').style.display = 'flex';
-    }
+    document.getElementById('popup').style.display = 'flex';
 });
 
 const canvas = document.getElementById('bg');
@@ -208,22 +201,6 @@ function animate() {
 }
 
 animate();
-
-setInterval(() => {
-
-    fetch(window.location.href, {
-
-        method: 'HEAD',
-
-        cache: 'no-store'
-    })
-    .then(() => {
-
-        location.reload(true);
-
-    });
-
-}, 30000);
 
 </script>
 
