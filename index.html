@@ -16,6 +16,25 @@
 
 <canvas id="bg"></canvas>
 
+<div id="popup" class="popup">
+
+    <div class="popup-box">
+
+        <h2>Important</h2>
+
+        <p>
+            Search using the file name,<br>
+            NOT the in-game item name.
+        </p>
+
+        <button onclick="closePopup()">
+            I understand
+        </button>
+
+    </div>
+
+</div>
+
 <div class="container">
 
     <h1>Backup RL Files</h1>
@@ -89,6 +108,16 @@
 <script src="script.js"></script>
 
 <script>
+
+function closePopup() {
+
+    document.getElementById('popup').style.display = 'none';
+}
+
+window.onload = () => {
+
+    document.getElementById('popup').style.display = 'flex';
+}
 
 const canvas = document.getElementById('bg');
 
