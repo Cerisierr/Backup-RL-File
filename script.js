@@ -11,6 +11,14 @@ const urlParams =
 const presetSearch =
     urlParams.get('search');
 
+console.log(presetSearch);
+
+if (presetSearch) {
+
+    document.getElementById('search').value =
+        presetSearch;
+}
+
 function normalize(text) {
 
     return text
