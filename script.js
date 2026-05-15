@@ -22,6 +22,10 @@ window.addEventListener('DOMContentLoaded', () => {
     if (presetSearch) {
 
         searchInput.value = presetSearch;
+    
+        searchInput.dispatchEvent(
+            new Event('input')
+        );
     }
 
     function normalize(text) {
