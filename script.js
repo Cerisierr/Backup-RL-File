@@ -1,227 +1,223 @@
-let allFiles = [];
-let filteredFiles = [];
+window.addEventListener('DOMContentLoaded', () => {
 
-let currentPage = 1;
+    let allFiles = [];
+    let filteredFiles = [];
 
-const filesPerPage = 100;
+    let currentPage = 1;
 
-const urlParams =
-    new URLSearchParams(window.location.search);
+    const filesPerPage = 100;
 
-const presetSearch =
-    urlParams.get('search');
+    const searchInput =
+        document.getElementById('search');
 
-console.log(presetSearch);
+    const filterInput =
+        document.getElementById('filter');
 
-if (presetSearch) {
+    const urlParams =
+        new URLSearchParams(window.location.search);
 
-    document.getElementById('search').value =
-        presetSearch;
-}
+    const presetSearch =
+        urlParams.get('search');
 
-function normalize(text) {
+    if (presetSearch) {
 
-    return text
-        .toLowerCase()
-        .replace(/[_-]/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-}
+        searchInput.value = presetSearch;
+    }
 
-const searchInput =
-    document.getElementById('search');
+    function normalize(text) {
 
-const filterInput =
-    document.getElementById('filter');
+        return text
+            .toLowerCase()
+            .replace(/[_-]/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
 
-if (presetSearch) {
+    fetch('items.json')
+        .then(response => response.json())
+        .then(data => {
 
-    searchInput.value = presetSearch;
-}
+            allFiles = [...new Map(
+                data.map(file => [file.name, file])
+            ).values()];
 
-fetch('items.json')
-    .then(response => response.json())
-    .then(data => {
+            applyFilters();
+        });
 
-        allFiles = [...new Map(
-            data.map(file => [file.name, file])
-        ).values()];
+    searchInput.addEventListener(
+        'input',
+        applyFilters
+    );
 
-        applyFilters();
-    });
+    filterInput.addEventListener(
+        'change',
+        applyFilters
+    );
 
-searchInput.addEventListener(
-    'input',
-    applyFilters
-);
+    function applyFilters() {
 
-filterInput.addEventListener(
-    'change',
-    applyFilters
-);
+        const searchValue =
+            normalize(searchInput.value);
 
-function applyFilters() {
+        const filterValue =
+            filterInput.value;
 
-    const searchValue =
-        normalize(searchInput.value);
+        filteredFiles = allFiles.filter(file => {
 
-    const filterValue =
-        filterInput.value;
+            const matchesSearch =
+                normalize(file.name)
+                    .includes(searchValue);
 
-    filteredFiles = allFiles.filter(file => {
+            const matchesFilter =
+                filterValue === 'all' ||
+                file.category === filterValue;
 
-        const matchesSearch =
-            normalize(file.name)
-                .includes(searchValue);
+            return matchesSearch &&
+                   matchesFilter;
+        });
 
-        const matchesFilter =
-            filterValue === 'all' ||
-            file.category === filterValue;
+        currentPage = 1;
 
-        return matchesSearch &&
-               matchesFilter;
-    });
+        displayFiles();
+    }
 
-    currentPage = 1;
+    function displayFiles() {
 
-    displayFiles();
-}
+        const container =
+            document.getElementById('files');
 
-function displayFiles() {
+        container.innerHTML = '';
 
-    const container =
-        document.getElementById('files');
+        const start =
+            (currentPage - 1) * filesPerPage;
 
-    container.innerHTML = '';
+        const end =
+            start + filesPerPage;
 
-    const start =
-        (currentPage - 1) * filesPerPage;
+        const filesToShow =
+            filteredFiles.slice(start, end);
 
-    const end =
-        start + filesPerPage;
+        filesToShow.forEach(file => {
 
-    const filesToShow =
-        filteredFiles.slice(start, end);
+            const url =
+                `./files/${file.name}`;
 
-    filesToShow.forEach(file => {
+            const div =
+                document.createElement('div');
 
-        const url =
-            `./files/${file.name}`;
+            div.className = 'file';
 
-        const div =
-            document.createElement('div');
+            div.innerHTML = `
+                <div>
+                    <strong>${file.name}</strong><br>
+                    <small>${file.category || 'Unknown'}</small>
+                </div>
 
-        div.className = 'file';
+                <a class="download"
+                   href="${url}"
+                   target="_blank">
+                    Download
+                </a>
+            `;
 
-        div.innerHTML = `
-            <div>
-                <strong>${file.name}</strong><br>
-                <small>${file.category || 'Unknown'}</small>
-            </div>
+            container.appendChild(div);
+        });
 
-            <a class="download"
-               href="${url}"
-               target="_blank">
-                Download
-            </a>
-        `;
-
-        container.appendChild(div);
-    });
-
-    document.getElementById(
-        'resultCount'
-    ).innerText =
-        `${filteredFiles.length} files found`;
-
-    displayPagination();
-}
-
-function displayPagination() {
-
-    let pagination =
         document.getElementById(
-            'pagination'
-        );
+            'resultCount'
+        ).innerText =
+            `${filteredFiles.length} files found`;
 
-    if (!pagination) {
-
-        pagination =
-            document.createElement('div');
-
-        pagination.id = 'pagination';
-
-        document.querySelector('.container')
-            .appendChild(pagination);
+        displayPagination();
     }
 
-    pagination.innerHTML = '';
+    function displayPagination() {
 
-    const totalPages =
-        Math.ceil(
-            filteredFiles.length /
-            filesPerPage
-        );
+        let pagination =
+            document.getElementById(
+                'pagination'
+            );
 
-    if (totalPages <= 0) {
+        if (!pagination) {
 
-        pagination.innerHTML =
-            'Page 0 / 0';
+            pagination =
+                document.createElement('div');
 
-        return;
+            pagination.id = 'pagination';
+
+            document.querySelector('.container')
+                .appendChild(pagination);
+        }
+
+        pagination.innerHTML = '';
+
+        const totalPages =
+            Math.ceil(
+                filteredFiles.length /
+                filesPerPage
+            );
+
+        if (totalPages <= 0) {
+
+            pagination.innerHTML =
+                'Page 0 / 0';
+
+            return;
+        }
+
+        if (currentPage > 1) {
+
+            const prev =
+                document.createElement('button');
+
+            prev.innerText =
+                '← Previous';
+
+            prev.onclick = () => {
+
+                currentPage--;
+
+                displayFiles();
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            };
+
+            pagination.appendChild(prev);
+        }
+
+        const info =
+            document.createElement('span');
+
+        info.innerText =
+            ` Page ${currentPage} / ${totalPages} `;
+
+        pagination.appendChild(info);
+
+        if (currentPage < totalPages) {
+
+            const next =
+                document.createElement('button');
+
+            next.innerText =
+                'Next →';
+
+            next.onclick = () => {
+
+                currentPage++;
+
+                displayFiles();
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            };
+
+            pagination.appendChild(next);
+        }
     }
 
-    if (currentPage > 1) {
-
-        const prev =
-            document.createElement('button');
-
-        prev.innerText =
-            '← Previous';
-
-        prev.onclick = () => {
-
-            currentPage--;
-
-            displayFiles();
-
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        };
-
-        pagination.appendChild(prev);
-    }
-
-    const info =
-        document.createElement('span');
-
-    info.innerText =
-        ` Page ${currentPage} / ${totalPages} `;
-
-    pagination.appendChild(info);
-
-    if (currentPage < totalPages) {
-
-        const next =
-            document.createElement('button');
-
-        next.innerText =
-            'Next →';
-
-        next.onclick = () => {
-
-            currentPage++;
-
-            displayFiles();
-
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        };
-
-        pagination.appendChild(next);
-    }
-}
+});
