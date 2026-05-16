@@ -136,7 +136,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
             <a class="download"
             href="${url}"
-            target="_blank">
+            target="_blank"
+            data-goatcounter-click="download-${file.name}">
                 Download
             </a>
         `;
