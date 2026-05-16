@@ -137,7 +137,11 @@ window.addEventListener('DOMContentLoaded', () => {
             <a class="download"
             href="${url}"
             target="_blank"
-            data-goatcounter-click="download-${file.name}">
+            onclick="goatcounter.count({
+                path: 'download',
+                title: 'Download',
+                event: true
+            })">
                 Download
             </a>
         `;
