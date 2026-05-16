@@ -117,18 +117,33 @@ window.addEventListener('DOMContentLoaded', () => {
 
             div.className = 'file';
 
-            div.innerHTML = `
-                <div>
-                    <strong>${file.name}</strong><br>
-                    <small>${file.category || 'Unknown'}</small>
-                </div>
-
-                <a class="download"
-                   href="${url}"
-                   target="_blank">
-                    Download
-                </a>
-            `;
+        div.innerHTML = `
+            <div>
+        
+                <strong>
+                    ${file.product || file.name}
+                </strong><br>
+        
+                <small>
+                    ${file.name}
+                </small><br>
+        
+                <small>
+                    ${file.category || 'Unknown'}
+                </small><br>
+        
+                <small class="alias">
+                    Alias ${file.product || 'Unknown'}
+                </small>
+        
+            </div>
+        
+            <a class="download"
+               href="${url}"
+               target="_blank">
+                Download
+            </a>
+        `;
 
             container.appendChild(div);
         });
