@@ -118,24 +118,12 @@ window.addEventListener('DOMContentLoaded', () => {
             div.className = 'file';
 
         div.innerHTML = `
-            <div>
-        
-                <strong>
-                    ${file.product || file.name}
-                </strong><br>
-        
-                <small>
-                    ${file.name}
-                </small><br>
-        
-                <small>
-                    ${file.category || 'Unknown'}
-                </small><br>
-        
-                <small class="alias">
-                    Alias ${file.product || 'Unknown'}
-                </small>
-        
+             <div>
+                <strong>${file.product || file.name.replace('.upk', '')}</strong><br>
+            
+                <small>${file.name}</small><br>
+            
+                <small>${file.category || 'Unknown'}</small>
             </div>
         
             <a class="download"
