@@ -81,49 +81,35 @@ h1 {
 }
 
 .file-info {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 6px;
 }
 
 .file-title {
-
-    font-size: 30px;
-
-    font-weight: bold;
-
+    font-size: 18px;
+    font-weight: 700;
     color: white;
+    line-height: 1.2;
 }
 
 .file-name {
 
-    font-size: 14px;
-
+    font-size: 13px;
     color: rgba(255,255,255,0.45);
-
     font-family: monospace;
 }
 
 .file-category {
 
     width: fit-content;
-
-    padding: 6px 12px;
-
+    padding: 4px 10px;
     border-radius: 999px;
-
     background: rgba(99,102,241,0.18);
-
     border: 1px solid rgba(99,102,241,0.4);
-
     color: #a5b4fc;
-
-    font-size: 13px;
-
-    font-weight: bold;
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .download {
@@ -192,7 +178,6 @@ h1 {
     from {
 
         opacity: 0;
-
         transform:
             scale(0.9);
     }
@@ -200,7 +185,6 @@ h1 {
     to {
 
         opacity: 1;
-
         transform:
             scale(1);
     }

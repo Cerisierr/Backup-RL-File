@@ -197,9 +197,7 @@ window.addEventListener('DOMContentLoaded', () => {
             prev.onclick = () => {
 
                 currentPage--;
-
                 displayFiles();
-
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
@@ -230,7 +228,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 currentPage++;
 
                 displayFiles();
-
+                
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
