@@ -68,9 +68,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
         filteredFiles = allFiles.filter(file => {
 
-            const matchesSearch =
-                normalize(file.name)
-                    .includes(searchValue);
+        const matchesSearch =
+        
+            normalize(file.name)
+                .includes(searchValue)
+        
+            ||
+        
+            normalize(file.product || '')
+                .includes(searchValue);
 
             const matchesFilter =
                 filterValue === 'all' ||
