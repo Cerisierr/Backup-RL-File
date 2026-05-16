@@ -15,14 +15,11 @@ async function loadStats() {
         const data = await response.json();
 
         let downloads = 0;
-        let visitors = data.total ?? 0;
 
         data.hits.forEach(hit => {
 
-            if (
-                hit.event === true &&
-                hit.path.startsWith("download-")
-            ) {
+            if (hit.path === "download") {
+
                 downloads += hit.count;
             }
         });
@@ -31,7 +28,7 @@ async function loadStats() {
             downloads;
 
         document.getElementById("visitors").innerText =
-            visitors;
+            data.total ?? 0;
 
     } catch (error) {
 
