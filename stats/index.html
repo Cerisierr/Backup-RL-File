@@ -16,35 +16,144 @@
 
 <body>
 
+<canvas id="bg"></canvas>
+
 <div class="container">
 
     <h1>Website Stats</h1>
 
-    <div class="stats-grid">
+<div class="stats-grid">
 
-        <div class="stat-card">
+    <div class="file">
 
-            <h2>Total Downloads</h2>
+        <div class="file-info">
 
-            <p id="downloads">
+            <div class="file-title">
+                Total Downloads
+            </div>
+
+            <div class="file-name"
+                 id="downloads">
                 Loading...
-            </p>
+            </div>
+
+            <div class="file-category">
+                GoatCounter Event
+            </div>
 
         </div>
 
-        <div class="stat-card">
+    </div>
 
-            <h2>Total Visitors</h2>
+    <div class="file">
 
-            <p id="visitors">
+        <div class="file-info">
+
+            <div class="file-title">
+                Total Visitors
+            </div>
+
+            <div class="file-name"
+                 id="visitors">
                 Loading...
-            </p>
+            </div>
+
+            <div class="file-category">
+                Website Hits
+            </div>
 
         </div>
 
     </div>
 
 </div>
+
+<script>
+
+const canvas = document.getElementById('bg');
+
+const ctx = canvas.getContext('2d');
+
+let width;
+let height;
+
+let points = [];
+
+function resize() {
+
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+}
+
+window.addEventListener('resize', resize);
+
+resize();
+
+for (let i = 0; i < 120; i++) {
+
+    points.push({
+
+        x: Math.random() * width,
+        y: Math.random() * height,
+
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4
+    });
+}
+
+function animate() {
+
+    ctx.clearRect(0, 0, width, height);
+
+    for (let p of points) {
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        ctx.beginPath();
+
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+
+        ctx.fillStyle = '#6366f1';
+
+        ctx.fill();
+    }
+
+    for (let i = 0; i < points.length; i++) {
+
+        for (let j = i + 1; j < points.length; j++) {
+
+            const dx = points[i].x - points[j].x;
+            const dy = points[i].y - points[j].y;
+
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 140) {
+
+                ctx.beginPath();
+
+                ctx.moveTo(points[i].x, points[i].y);
+                ctx.lineTo(points[j].x, points[j].y);
+
+                ctx.strokeStyle =
+                    `rgba(99,102,241,${1 - dist / 140})`;
+
+                ctx.lineWidth = 1;
+
+                ctx.stroke();
+            }
+        }
+    }
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+</script>
 
 <script src="script.js"></script>
 
