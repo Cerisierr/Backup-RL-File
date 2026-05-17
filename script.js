@@ -137,11 +137,7 @@ window.addEventListener('DOMContentLoaded', () => {
             <a class="download"
             href="${url}"
             target="_blank"
-            onclick="goatcounter.count({
-                path: 'download',
-                title: 'Download',
-                event: true
-            })">
+            onclick="trackDownload(event, '${url}')">
                 Download
             </a>
         `;
@@ -157,6 +153,24 @@ window.addEventListener('DOMContentLoaded', () => {
         displayPagination();
     }
 
+
+    window.trackDownload = function(event, url) {
+    
+        event.preventDefault();
+    
+        goatcounter.count({
+            path: 'download',
+            title: 'Download',
+            event: true
+        });
+    
+        setTimeout(() => {
+    
+            window.open(url, '_blank');
+    
+        }, 150);
+    };
+    
     function displayPagination() {
 
         let pagination =
